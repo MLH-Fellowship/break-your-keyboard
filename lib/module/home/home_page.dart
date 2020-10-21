@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/dependency_injection/setup_locator.dart';
+import '../../core/service/router/router_i.dart';
 import '../../presentation/buttons/full_color_blue_button.dart';
 import '../../presentation/buttons/full_color_button.dart';
 import '../../presentation/buttons/full_color_yellow_button.dart';
 import '../../presentation/dimensions.dart';
 import '../../presentation/text_styles.dart';
+import '../practice_mode/practice_mode_page.dart';
 
 class HomePage extends StatelessWidget {
   static const route = 'home_page';
@@ -36,7 +39,10 @@ class HomePage extends StatelessWidget {
                         buttonLabel: 'JOIN ROOM', onClick: () {}),
                     const SizedBox(height: 20),
                     FullColorButton(
-                        buttonLabel: 'PRACTICE MODE', onClick: () {}),
+                        buttonLabel: 'PRACTICE MODE',
+                        onClick: () {
+                          getIts<RouterI>().routeTo(PracticeModePage.route);
+                        }),
                   ],
                 ),
               ),
