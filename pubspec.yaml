@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  get_it: ^5.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -19,3 +21,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/fonts/
+
+  fonts:
+    - family: Cabin
+      fonts:
+        - asset: assets/fonts/Cabin-Italic-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/Cabin-VariableFont_wdth,wght.ttf

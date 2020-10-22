@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+class PracticeModePage extends StatefulWidget {
+  static const route = 'practice_mode_page';
+
+  const PracticeModePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PracticeModePageState createState() => _PracticeModePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PracticeModePageState extends State<PracticeModePage> {
   FocusNode focusNode = FocusNode();
   int _counter = 0;
   bool _hasPressedSpaceDown = false;
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Press on the spacebar!'),
       ),
       body: RawKeyboardListener(
         autofocus: true,

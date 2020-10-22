@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'homepage.dart';
+import 'core/dependency_injection/setup_locator.dart';
+import 'core/navigation/route_generator.dart';
+import 'core/service/context/context_provider_i.dart';
+import 'module/home/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -13,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: const MyHomePage(title: 'Press on the spacebar!'),
+      initialRoute: HomePage.route,
+      navigatorKey: sl<ContextProviderI>().getNavigationKey(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
