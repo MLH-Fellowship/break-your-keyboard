@@ -11,7 +11,6 @@ import '../../presentation/dimensions.dart';
 import '../../presentation/misc/separator.dart';
 import '../../presentation/text_styles.dart';
 import '../practice_mode/practice_mode_page.dart';
-import '../practice_mode/practice_mode_page_mobile.dart';
 
 class HomePage extends StatelessWidget {
   static const route = 'home_page';
@@ -19,11 +18,7 @@ class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   void goToPractice() {
-    if (kIsWeb) {
-      getIts<RouterI>().routeTo(PracticeModePage.route);
-    } else {
-      getIts<RouterI>().routeTo(PracticeModePageMobile.route);
-    }
+    getIts<RouterI>().routeTo(PracticeModePage.route);
   }
 
   @override
