@@ -13,7 +13,6 @@ class NotAvailablePage extends StatefulWidget {
 
 class _WidgetState extends State<NotAvailablePage> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
