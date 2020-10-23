@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TrafficLight extends StatelessWidget {
-  final int activeLightIndex;
+  final TrafficColor activeLight;
 
   const TrafficLight({
     Key key,
-    this.activeLightIndex = 0,
+    this.activeLight = TrafficColor.red,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class TrafficLight extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     color:
-                        Colors.red.withOpacity(activeLightIndex > 0 ? 1 : 0.2),
+                        Colors.red.withOpacity(activeLight != null ? 1 : 0.2),
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
@@ -32,7 +32,7 @@ class TrafficLight extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     color: Colors.yellow
-                        .withOpacity(activeLightIndex > 1 ? 1 : 0.2),
+                        .withOpacity(activeLight != TrafficColor.red ? 1 : 0.2),
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
@@ -41,7 +41,7 @@ class TrafficLight extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     color: Colors.green
-                        .withOpacity(activeLightIndex > 2 ? 1 : 0.2),
+                        .withOpacity(activeLight == TrafficColor.green ? 1 : 0.2),
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
@@ -53,3 +53,5 @@ class TrafficLight extends StatelessWidget {
     );
   }
 }
+
+enum TrafficColor{red, yellow, green}

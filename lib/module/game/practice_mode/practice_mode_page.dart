@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../presentation/dimensions.dart';
@@ -14,6 +16,27 @@ class PracticeModePage extends StatefulWidget {
 }
 
 class _PracticeModePageState extends State<PracticeModePage> {
+  TrafficColor _activeLight = TrafficColor.red;
+
+  void incrementActiveLightIndex() {
+    setState(() {
+      _activeLight = TrafficColor.values[_activeLight.index + 1];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        incrementActiveLightIndex();
+        if (_activeLight == TrafficColor.green) timer.cancel();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +49,10 @@ class _PracticeModePageState extends State<PracticeModePage> {
           padding: AppDimensions.allPagePadding,
           child: Column(
             mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-            children: const [
-              TrafficLight(),
-              SizedBox(height: 40),
-              TapAndKeyListener(),
+            children: [
+              TrafficLight(activeLight: _activeLight),
+              const SizedBox(height: 40),
+              TapAndKeyListener(isEnabled: _activeLight == TrafficColor.green),
             ],
           ),
         ),
