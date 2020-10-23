@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../core/service/utils/misc.dart';
 import '../../../presentation/dimensions.dart';
+import '../widgets/counter_decorated_box.dart';
 import '../widgets/tap_and_key_listener.dart';
 import '../widgets/traffic_light.dart';
 
@@ -17,6 +19,29 @@ class PracticeModePage extends StatefulWidget {
 
 class _PracticeModePageState extends State<PracticeModePage> {
   TrafficColor _activeLight = TrafficColor.red;
+  int _tapCount = 0;
+  double _startClickingTime = 0;
+  int _speed = 0;
+  bool get _isGameStarted => _activeLight == TrafficColor.green;
+
+  int measureSpeed() {
+    final timePassed = Misc.currentTimeInSeconds() - _startClickingTime;
+    return ((_tapCount / timePassed) * 60).round(); // actions per minute
+  }
+
+  void invokeAction() {
+    if (!_isGameStarted) return;
+
+    if (_startClickingTime == 0) {
+      _startClickingTime = Misc.currentTimeInSeconds();
+    }
+
+    setState(() {
+
+      _tapCount++;
+      _speed = measureSpeed();
+    });
+  }
 
   void incrementActiveLightIndex() {
     setState(() {
@@ -52,7 +77,10 @@ class _PracticeModePageState extends State<PracticeModePage> {
             children: [
               TrafficLight(activeLight: _activeLight),
               const SizedBox(height: 40),
-              TapAndKeyListener(isEnabled: _activeLight == TrafficColor.green),
+              TapAndKeyListener(
+                  isEnabled: _isGameStarted,
+                  body: CounterDecoratedBox(tapCount: _tapCount, speed: _speed),
+                  invokeAction: invokeAction),
             ],
           ),
         ),
