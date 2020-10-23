@@ -30,27 +30,31 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: AppDimensions.leftRightPagePadding,
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Text(
-                      'FINGER GAMES',
-                      style: AppTextStyles.headerTextStyle,
-                    ),
-                    const SizedBox(height: 120),
-                    FullColorYellowButton(
-                        buttonLabel: 'CREATE ROOM', onClick: () {}),
-                    const SizedBox(height: 40),
-                    const Separator(),
-                    const SizedBox(height: 40),
-                    FullColorBlueButton(
-                        buttonLabel: 'JOIN ROOM', onClick: () {}),
-                    const SizedBox(height: 20),
-                    FullColorButton(
-                      buttonLabel: 'PRACTICE MODE',
-                      onClick: goToPractice,
-                    )
-                  ],
+              child: Container(
+                width: AppDimensions.getContainerWidth(context),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'FINGER GAMES',
+                        style: AppTextStyles.headerTextStyle,
+                      ),
+                      const SizedBox(height: 120),
+                      FullColorYellowButton(
+                          buttonLabel: 'CREATE ROOM', onClick: () {}),
+                      const SizedBox(height: 40),
+                      const Separator(),
+                      const SizedBox(height: 40),
+                      FullColorBlueButton(
+                          buttonLabel: 'JOIN ROOM', onClick: () {}),
+                      const SizedBox(height: 20),
+                      FullColorButton(
+                        buttonLabel: 'PRACTICE MODE',
+                        onClick: goToPractice,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

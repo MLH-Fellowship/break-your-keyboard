@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppDimensions {
@@ -7,4 +9,8 @@ class AppDimensions {
 
   static const EdgeInsets leftRightPagePadding =
       EdgeInsets.only(left: _pagePaddingValue, right: _pagePaddingValue);
+
+  static double getContainerWidth(BuildContext context) {
+    return min(MediaQuery.of(context).size.width, 500);
+  }
 }
