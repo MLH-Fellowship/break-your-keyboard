@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../module/game/practice_mode/practice_mode_page.dart';
 import '../../module/home/home_page.dart';
 import '../../module/not_available/not_available.dart';
-import '../../module/practice_mode/practice_mode_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {

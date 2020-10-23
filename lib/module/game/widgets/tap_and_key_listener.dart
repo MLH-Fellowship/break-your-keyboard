@@ -2,16 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../core/service/utils/misc.dart';
+import '../../../core/service/utils/misc.dart';
 import 'custom_keyboard_listener.dart';
 
 class TapAndKeyListener extends StatefulWidget {
-  final Function onTapOrKeyPressCallback;
   final bool isEnabled;
 
-  const TapAndKeyListener(
-      {this.onTapOrKeyPressCallback, Key key, this.isEnabled = true})
-      : super(key: key);
+  const TapAndKeyListener({
+    Key key,
+    this.isEnabled = true,
+  }) : super(key: key);
 
   @override
   _TapAndKeyListenerState createState() => _TapAndKeyListenerState();
@@ -20,8 +20,6 @@ class TapAndKeyListener extends StatefulWidget {
 class _TapAndKeyListenerState extends State<TapAndKeyListener> {
   int _tapCount = 0;
 
-  // this is only used to measure speed.
-  // cannot be used for the actual game timer
   double _startClickingTime = 0;
   int _speed = 0;
 
@@ -33,7 +31,6 @@ class _TapAndKeyListenerState extends State<TapAndKeyListener> {
   void invokeAction() {
     if (!widget.isEnabled) return;
 
-    // check if this is the first tap
     if (_startClickingTime == 0) {
       _startClickingTime = Misc.currentTimeInSeconds();
     }
@@ -42,8 +39,6 @@ class _TapAndKeyListenerState extends State<TapAndKeyListener> {
       _tapCount++;
       _speed = measureSpeed();
     });
-
-    widget.onTapOrKeyPressCallback();
   }
 
   @override
@@ -63,7 +58,7 @@ class _TapAndKeyListenerState extends State<TapAndKeyListener> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(.25),
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   blurRadius: 20,
                 ),
               ],
@@ -75,7 +70,7 @@ class _TapAndKeyListenerState extends State<TapAndKeyListener> {
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(0.0, 1.0),
-                stops: [0.0, 1],
+                stops: const [0.0, 1],
               ),
             ),
             child: Center(
@@ -84,11 +79,11 @@ class _TapAndKeyListenerState extends State<TapAndKeyListener> {
                 children: [
                   Text(
                     _tapCount.toString(),
-                    style: TextStyle(fontSize: 59),
+                    style: const TextStyle(fontSize: 59),
                   ),
                   Text(
                     '${_speed.toString()} apm',
-                    style: TextStyle(fontSize: 38, color: Colors.lime),
+                    style: const TextStyle(fontSize: 38, color: Colors.lime),
                   )
                 ],
               ),

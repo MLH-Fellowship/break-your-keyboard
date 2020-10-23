@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Break Your Keyboard',
       theme: ThemeData.dark(),
       initialRoute: HomePage.route,
       navigatorKey: sl<ContextProviderI>().getNavigationKey(),

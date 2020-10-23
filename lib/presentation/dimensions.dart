@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class AppDimensions {
   static const double _pagePaddingValue = 32;
 

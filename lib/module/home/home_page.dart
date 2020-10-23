@@ -10,7 +10,7 @@ import '../../presentation/buttons/full_color_yellow_button.dart';
 import '../../presentation/dimensions.dart';
 import '../../presentation/misc/separator.dart';
 import '../../presentation/text_styles.dart';
-import '../practice_mode/practice_mode_page.dart';
+import '../game/practice_mode/practice_mode_page.dart';
 
 class HomePage extends StatelessWidget {
   static const route = 'home_page';
