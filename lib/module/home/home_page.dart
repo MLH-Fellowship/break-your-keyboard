@@ -34,7 +34,6 @@ class HomePage extends StatelessWidget {
                 width: AppDimensions.getContainerWidth(context),
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
                         'FINGER GAMES',

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class AppDimensions {
@@ -13,4 +14,7 @@ class AppDimensions {
   static double getContainerWidth(BuildContext context) {
     return min(MediaQuery.of(context).size.width, 500);
   }
+
+  static MainAxisAlignment containerMainAxisAlignment =
+      kIsWeb ? MainAxisAlignment.center : MainAxisAlignment.start;
 }

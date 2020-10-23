@@ -23,8 +23,9 @@ class _PracticeModePageState extends State<PracticeModePage> {
       body: Center(
         child: Container(
           width: AppDimensions.getContainerWidth(context),
+          padding: AppDimensions.allPagePadding,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
             children: [
               TrafficLight(),
               SizedBox(height: 40),
