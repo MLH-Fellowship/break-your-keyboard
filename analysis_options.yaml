@@ -6,3 +6,4 @@ linter:
     prefer_const_literals_to_create_immutables: false
     prefer_single_quotes: false
     prefer_final_fields: false
+    avoid_classes_with_only_static_members: false
