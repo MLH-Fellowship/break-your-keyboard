@@ -1,4 +1,3 @@
-import 'package:break_your_keyboard/module/game/join_page/join_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +10,8 @@ import '../../presentation/buttons/full_color_yellow_button.dart';
 import '../../presentation/dimensions.dart';
 import '../../presentation/misc/separator.dart';
 import '../../presentation/text_styles.dart';
+import '../game/create_game_page/create_game_page.dart';
+import '../game/join_page/join_page.dart';
 import '../game/practice_mode/practice_mode_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,6 +25,10 @@ class HomePage extends StatelessWidget {
 
   void goToJoin() {
     getIts<RouterI>().routeTo(JoinPage.route);
+  }
+
+  void goToCreate() {
+    getIts<RouterI>().routeTo(CreateGamePage.route);
   }
 
   @override
@@ -46,7 +51,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 120),
                       FullColorYellowButton(
-                          buttonLabel: 'CREATE ROOM', onClick: () {}),
+                          buttonLabel: 'CREATE ROOM', onClick: goToCreate),
                       const SizedBox(height: 40),
                       const Separator(),
                       const SizedBox(height: 40),

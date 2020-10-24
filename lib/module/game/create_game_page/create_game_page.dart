@@ -7,24 +7,24 @@ import '../../../presentation/buttons/full_color_blue_button.dart';
 import '../../../presentation/dimensions.dart';
 import '../../../presentation/inputs/text_field_outlined.dart';
 import '../../../presentation/text_styles.dart';
+import '../widgets/game_time_selector.dart';
 
-class JoinPage extends StatefulWidget {
-  static const route = 'join_page';
+class CreateGamePage extends StatefulWidget {
+  static const route = 'create_game_page';
 
-  const JoinPage({Key key}) : super(key: key);
+  const CreateGamePage({Key key}) : super(key: key);
 
   @override
-  _JoinPageState createState() => _JoinPageState();
+  _CreateGamePageState createState() => _CreateGamePageState();
 }
 
-class _JoinPageState extends State<JoinPage> {
-  final _joinCodeController = TextEditingController();
+class _CreateGamePageState extends State<CreateGamePage> {
   final _nicknameController = TextEditingController();
+  final _maxPlayersController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _joinCodeController.dispose();
     _nicknameController.dispose();
   }
 
@@ -43,21 +43,23 @@ class _JoinPageState extends State<JoinPage> {
             mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
             children: [
               const Text(
-                'JOIN A GAME',
+                'CREATE A GAME',
                 style: AppTextStyles.headerTextStyle,
               ),
-              const SizedBox(height: 150),
+              const SizedBox(height: 120),
               TextFieldOutlined(
                 hintText: 'Nickname',
                 controller: _nicknameController,
               ),
               const SizedBox(height: 15),
               TextFieldOutlined(
-                hintText: 'Join code',
-                controller: _joinCodeController,
+                hintText: 'Max players (2-10)',
+                controller: _maxPlayersController,
               ),
+              const SizedBox(height: 15),
+              GameTimeSelector(onChanged: (String value) {}),
               const SizedBox(height: 35),
-              FullColorBlueButton(onClick: () {}, buttonLabel: 'Join'),
+              FullColorBlueButton(onClick: () {}, buttonLabel: 'Create'),
               const SizedBox(height: 15),
               BorderedButton(onClick: goBack, buttonLabel: 'Back'),
             ],

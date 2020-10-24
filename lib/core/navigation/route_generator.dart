@@ -1,6 +1,7 @@
-import 'package:break_your_keyboard/module/game/join_page/join_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../module/game/create_game_page/create_game_page.dart';
+import '../../module/game/join_page/join_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';
 import '../../module/home/home_page.dart';
 import '../../module/not_available/not_available.dart';
@@ -16,6 +17,9 @@ class RouteGenerator {
 
       case JoinPage.route:
         return _navigate(const JoinPage());
+
+      case CreateGamePage.route:
+        return _navigate(const CreateGamePage());
 
       default:
         return _navigate(NotAvailablePage(route: routeSettings.name));
