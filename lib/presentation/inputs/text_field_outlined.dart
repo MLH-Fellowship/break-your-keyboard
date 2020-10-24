@@ -14,6 +14,8 @@ class TextFieldOutlined extends StatelessWidget {
       controller: controller,
       style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(
+        fillColor: Colors.black.withOpacity(0.4),
+        filled: true,
         hintText: hintText,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
