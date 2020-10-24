@@ -22,6 +22,7 @@ class _PracticeModePageState extends State<PracticeModePage> {
   int _tapCount = 0;
   double _startClickingTime = 0;
   int _speed = 0;
+  Timer _trafficLightTimer;
   bool get _isGameStarted => _activeLight == TrafficColor.green;
 
   int measureSpeed() {
@@ -37,7 +38,6 @@ class _PracticeModePageState extends State<PracticeModePage> {
     }
 
     setState(() {
-
       _tapCount++;
       _speed = measureSpeed();
     });
@@ -53,13 +53,19 @@ class _PracticeModePageState extends State<PracticeModePage> {
   void initState() {
     super.initState();
 
-    Timer.periodic(
+    _trafficLightTimer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
         incrementActiveLightIndex();
         if (_activeLight == TrafficColor.green) timer.cancel();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_trafficLightTimer != null) _trafficLightTimer.cancel();
   }
 
   @override
