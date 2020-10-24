@@ -1,3 +1,4 @@
+import 'package:break_your_keyboard/module/game/join_page/join_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,10 @@ class HomePage extends StatelessWidget {
 
   void goToPractice() {
     getIts<RouterI>().routeTo(PracticeModePage.route);
+  }
+
+  void goToJoin() {
+    getIts<RouterI>().routeTo(JoinPage.route);
   }
 
   @override
@@ -46,7 +51,9 @@ class HomePage extends StatelessWidget {
                       const Separator(),
                       const SizedBox(height: 40),
                       FullColorBlueButton(
-                          buttonLabel: 'JOIN ROOM', onClick: () {}),
+                        buttonLabel: 'JOIN ROOM',
+                        onClick: goToJoin,
+                      ),
                       const SizedBox(height: 20),
                       FullColorButton(
                         buttonLabel: 'PRACTICE MODE',
