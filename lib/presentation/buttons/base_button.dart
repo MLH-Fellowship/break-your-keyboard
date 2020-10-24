@@ -42,9 +42,11 @@ class BaseButton extends StatelessWidget {
         disabledColor: buttonDisabledColor,
         elevation: 0,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             side: BorderSide(
-                color: isEnableBt ? borderColor : borderDisabledColor)),
+              color: isEnableBt ? borderColor : borderDisabledColor,
+              width: 3,
+            )),
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
         color: buttonColor,
         onPressed: isEnableBt ? onClickBt : null,
