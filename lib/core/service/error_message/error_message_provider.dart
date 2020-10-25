@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../presentation/colors.dart';
 import 'error_message_provider_i.dart';
 
 class ErrorMessageProvider implements ErrorMessageProviderI {
@@ -9,8 +10,10 @@ class ErrorMessageProvider implements ErrorMessageProviderI {
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: AppColors.redColor,
+        textColor: AppColors.whiteColor,
+        webPosition: 'center',
+        webBgColor: AppColors.redColor.toString(),
         fontSize: 16.0);
   }
 }

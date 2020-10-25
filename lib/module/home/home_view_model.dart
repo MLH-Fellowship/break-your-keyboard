@@ -1,4 +1,5 @@
-import '../../core/dependency_injection/setup_locator.dart';
+import 'package:flutter/cupertino.dart';
+
 import '../../core/service/router/router_i.dart';
 import '../base/base_view_model.dart';
 import '../create_game/create_game_page.dart';
@@ -6,17 +7,19 @@ import '../game/practice_mode/practice_mode_page.dart';
 import '../join_game/join_game_page.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final RouterI _router = getIts<RouterI>();
+  RouterI router;
+
+  HomeViewModel({@required this.router});
 
   void onClickPracticeMode() {
-    _router.routeTo(PracticeModePage.route);
+    router.routeTo(PracticeModePage.route);
   }
 
   void onClickJoinGame() {
-    _router.routeTo(JoinPage.route);
+    router.routeTo(JoinPage.route);
   }
 
   void onClickCreateGame() {
-    _router.routeTo(CreateGamePage.route);
+    router.routeTo(CreateGamePage.route);
   }
 }
