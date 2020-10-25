@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../../module/home/home_view_model.dart';
 import '../service/api/database.dart';
 import '../service/api/database_i.dart';
 import '../service/context/context_provider.dart';
@@ -20,4 +21,6 @@ void setupLocator() {
         contextProvider: getIts<ContextProviderI>(),
       ));
   sl.registerLazySingleton<ErrorMessageProviderI>(() => ErrorMessageProvider());
+
+  sl.registerFactory(() => HomeViewModel());
 }
