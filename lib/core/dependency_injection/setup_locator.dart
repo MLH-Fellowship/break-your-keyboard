@@ -4,6 +4,8 @@ import '../service/api/database.dart';
 import '../service/api/database_i.dart';
 import '../service/context/context_provider.dart';
 import '../service/context/context_provider_i.dart';
+import '../service/error_message/error_message_provider.dart';
+import '../service/error_message/error_message_provider_i.dart';
 import '../service/router/router.dart';
 import '../service/router/router_i.dart';
 
@@ -17,4 +19,5 @@ void setupLocator() {
   sl.registerLazySingleton<RouterI>(() => Router(
         contextProvider: getIts<ContextProviderI>(),
       ));
+  sl.registerLazySingleton<ErrorMessageProviderI>(() => ErrorMessageProvider());
 }

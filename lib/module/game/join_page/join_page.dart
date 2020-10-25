@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/dependency_injection/setup_locator.dart';
 import '../../../core/service/api/database_i.dart';
+import '../../../core/service/error_message/error_message_provider_i.dart';
 import '../../../core/service/router/router_i.dart';
-import '../../../core/service/utils/misc.dart';
 import '../../../presentation/buttons/button_bordered.dart';
 import '../../../presentation/buttons/full_color_blue_button.dart';
 import '../../../presentation/dimensions.dart';
@@ -41,22 +41,24 @@ class _JoinPageState extends State<JoinPage> {
     });
   }
 
-  Future<void> joinGame(BuildContext ctx) async {
+  Future<void> joinGame() async {
+    final messageProvider = getIts<ErrorMessageProviderI>();
+
     setLoading(true);
     final joinCode = _joinCodeController.text;
 
     if (joinCode == '') {
-      Misc.showSnackbar(ctx, 'Provide a join code!');
+      messageProvider.showSnackBar('Provide a join code!');
       setLoading(false);
       return;
     }
     final roomExists = await getIts<DatabaseI>().roomExists(joinCode);
     setLoading(false);
     if (!roomExists) {
-      Misc.showSnackbar(ctx, 'Room does not exist!');
+      messageProvider.showSnackBar('Room does not exist!');
       return;
     } else {
-      Misc.showSnackbar(ctx, 'Joining the room. TODO!');
+      messageProvider.showSnackBar('Joining the room. TODO!');
       return;
     }
   }
@@ -88,7 +90,7 @@ class _JoinPageState extends State<JoinPage> {
                 ),
                 const SizedBox(height: 35),
                 FullColorBlueButton(
-                    onClick: () async => joinGame(ctx),
+                    onClick: () async => joinGame(),
                     isEnable: !_isJoinLoading,
                     buttonLabel: _isJoinLoading ? 'Loading...' : 'Join'),
                 const SizedBox(height: 15),
