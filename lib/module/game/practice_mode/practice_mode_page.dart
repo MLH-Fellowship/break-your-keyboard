@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../core/service/utils/misc.dart';
+import '../../../presentation/app_bar_mobile_only.dart';
 import '../../../presentation/dimensions.dart';
+import '../../../presentation/text_styles.dart';
 import '../widgets/counter_decorated_box.dart';
 import '../widgets/tap_and_key_listener.dart';
 import '../widgets/traffic_light.dart';
@@ -71,9 +73,7 @@ class _PracticeModePageState extends State<PracticeModePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Practice mode'),
-      ),
+      appBar: const AppBarForMobileOnly(),
       body: Center(
         child: Container(
           width: AppDimensions.getContainerWidth(context),
@@ -81,6 +81,11 @@ class _PracticeModePageState extends State<PracticeModePage> {
           child: Column(
             mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
             children: [
+              const Text(
+                'PRACTICE MODE',
+                style: AppTextStyles.headerTextStyle,
+              ),
+              const SizedBox(height: 40),
               TrafficLight(activeLight: _activeLight),
               const SizedBox(height: 40),
               TapAndKeyListener(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/dependency_injection/setup_locator.dart';
+import '../../../core/service/api/database_i.dart';
+import '../../../core/service/error_message/error_message_provider_i.dart';
 import '../../../core/service/router/router_i.dart';
+import '../../../presentation/app_bar_mobile_only.dart';
 import '../../../presentation/buttons/button_bordered.dart';
 import '../../../presentation/buttons/full_color_blue_button.dart';
 import '../../../presentation/dimensions.dart';
@@ -20,6 +23,7 @@ class JoinPage extends StatefulWidget {
 class _JoinPageState extends State<JoinPage> {
   final _joinCodeController = TextEditingController();
   final _nicknameController = TextEditingController();
+  bool _isJoinLoading = false;
 
   @override
   void dispose() {
@@ -32,35 +36,71 @@ class _JoinPageState extends State<JoinPage> {
     getIts<RouterI>().pop();
   }
 
+  void setLoading(bool value) {
+    setState(() {
+      _isJoinLoading = value;
+    });
+  }
+
+  Future<void> joinGame() async {
+    final messageProvider = getIts<ErrorMessageProviderI>();
+
+    setLoading(true);
+    final joinCode = _joinCodeController.text;
+
+    if (joinCode == '') {
+      messageProvider.showSnackBar('Provide a join code!');
+      setLoading(false);
+      return;
+    }
+    final roomExists = await getIts<DatabaseI>().roomExists(joinCode);
+    setLoading(false);
+    if (!roomExists) {
+      messageProvider.showSnackBar('Room does not exist!');
+      return;
+    } else {
+      messageProvider.showSnackBar('Joining the room. TODO!');
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const AppBarForMobileOnly(),
       body: Padding(
         padding: AppDimensions.allPagePadding,
         child: Center(
-          child: Column(
-            mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-            children: [
-              const Text(
-                'JOIN A GAME',
-                style: AppTextStyles.headerTextStyle,
+          child: Container(
+            width: AppDimensions.getContainerWidth(context),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                children: [
+                  const Text(
+                    'JOIN A GAME',
+                    style: AppTextStyles.headerTextStyle,
+                  ),
+                  const SizedBox(height: 150),
+                  TextFieldOutlined(
+                    hintText: 'Nickname',
+                    controller: _nicknameController,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldOutlined(
+                    hintText: 'Join code',
+                    controller: _joinCodeController,
+                  ),
+                  const SizedBox(height: 35),
+                  FullColorBlueButton(
+                      onClick: () async => joinGame(),
+                      isEnable: !_isJoinLoading,
+                      buttonLabel: _isJoinLoading ? 'Loading...' : 'Join'),
+                  const SizedBox(height: 15),
+                  BorderedButton(onClick: goBack, buttonLabel: 'Back'),
+                ],
               ),
-              const SizedBox(height: 150),
-              TextFieldOutlined(
-                hintText: 'Nickname',
-                controller: _nicknameController,
-              ),
-              const SizedBox(height: 15),
-              TextFieldOutlined(
-                hintText: 'Join code',
-                controller: _joinCodeController,
-              ),
-              const SizedBox(height: 35),
-              FullColorBlueButton(onClick: () {}, buttonLabel: 'Join'),
-              const SizedBox(height: 15),
-              BorderedButton(onClick: goBack, buttonLabel: 'Back'),
-            ],
+            ),
           ),
         ),
       ),

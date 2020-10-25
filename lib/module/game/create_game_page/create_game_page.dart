@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/dependency_injection/setup_locator.dart';
 import '../../../core/service/router/router_i.dart';
+import '../../../presentation/app_bar_mobile_only.dart';
 import '../../../presentation/buttons/button_bordered.dart';
 import '../../../presentation/buttons/full_color_blue_button.dart';
 import '../../../presentation/dimensions.dart';
@@ -35,34 +36,39 @@ class _CreateGamePageState extends State<CreateGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const AppBarForMobileOnly(),
       body: Padding(
         padding: AppDimensions.allPagePadding,
         child: Center(
-          child: Column(
-            mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-            children: [
-              const Text(
-                'CREATE A GAME',
-                style: AppTextStyles.headerTextStyle,
+          child: Container(
+            width: AppDimensions.getContainerWidth(context),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                children: [
+                  const Text(
+                    'CREATE A GAME',
+                    style: AppTextStyles.headerTextStyle,
+                  ),
+                  const SizedBox(height: 120),
+                  TextFieldOutlined(
+                    hintText: 'Nickname',
+                    controller: _nicknameController,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldOutlined(
+                    hintText: 'Max players (2-10)',
+                    controller: _maxPlayersController,
+                  ),
+                  const SizedBox(height: 15),
+                  GameTimeSelector(onChanged: (String value) {}),
+                  const SizedBox(height: 35),
+                  FullColorBlueButton(onClick: () {}, buttonLabel: 'Create'),
+                  const SizedBox(height: 15),
+                  BorderedButton(onClick: goBack, buttonLabel: 'Back'),
+                ],
               ),
-              const SizedBox(height: 120),
-              TextFieldOutlined(
-                hintText: 'Nickname',
-                controller: _nicknameController,
-              ),
-              const SizedBox(height: 15),
-              TextFieldOutlined(
-                hintText: 'Max players (2-10)',
-                controller: _maxPlayersController,
-              ),
-              const SizedBox(height: 15),
-              GameTimeSelector(onChanged: (String value) {}),
-              const SizedBox(height: 35),
-              FullColorBlueButton(onClick: () {}, buttonLabel: 'Create'),
-              const SizedBox(height: 15),
-              BorderedButton(onClick: goBack, buttonLabel: 'Back'),
-            ],
+            ),
           ),
         ),
       ),
