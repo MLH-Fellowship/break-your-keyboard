@@ -47,17 +47,16 @@ class _JoinPageState extends State<JoinPage> {
 
     if (joinCode == '') {
       Misc.showSnackbar(ctx, 'Provide a join code!');
-      setLoading(true);
+      setLoading(false);
       return;
     }
     final roomExists = await getIts<DatabaseI>().roomExists(joinCode);
     setLoading(false);
     if (!roomExists) {
-      Scaffold.of(ctx).showSnackBar(const SnackBar(
-        content: Text('Room does not exist!'),
-      ));
+      Misc.showSnackbar(ctx, 'Room does not exist!');
       return;
     } else {
+      Misc.showSnackbar(ctx, 'Joining the room. TODO!');
       return;
     }
   }
