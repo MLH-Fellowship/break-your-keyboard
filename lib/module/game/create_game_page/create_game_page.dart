@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/dependency_injection/setup_locator.dart';
 import '../../../core/service/router/router_i.dart';
+import '../../../presentation/app_bar_mobile_only.dart';
 import '../../../presentation/buttons/button_bordered.dart';
 import '../../../presentation/buttons/full_color_blue_button.dart';
 import '../../../presentation/dimensions.dart';
@@ -35,7 +36,7 @@ class _CreateGamePageState extends State<CreateGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const AppBarForMobileOnly(),
       body: Padding(
         padding: AppDimensions.allPagePadding,
         child: Center(
