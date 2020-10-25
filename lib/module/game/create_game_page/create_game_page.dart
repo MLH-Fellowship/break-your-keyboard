@@ -39,30 +39,35 @@ class _CreateGamePageState extends State<CreateGamePage> {
       body: Padding(
         padding: AppDimensions.allPagePadding,
         child: Center(
-          child: Column(
-            mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-            children: [
-              const Text(
-                'CREATE A GAME',
-                style: AppTextStyles.headerTextStyle,
+          child: Container(
+            width: AppDimensions.getContainerWidth(context),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                children: [
+                  const Text(
+                    'CREATE A GAME',
+                    style: AppTextStyles.headerTextStyle,
+                  ),
+                  const SizedBox(height: 120),
+                  TextFieldOutlined(
+                    hintText: 'Nickname',
+                    controller: _nicknameController,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldOutlined(
+                    hintText: 'Max players (2-10)',
+                    controller: _maxPlayersController,
+                  ),
+                  const SizedBox(height: 15),
+                  GameTimeSelector(onChanged: (String value) {}),
+                  const SizedBox(height: 35),
+                  FullColorBlueButton(onClick: () {}, buttonLabel: 'Create'),
+                  const SizedBox(height: 15),
+                  BorderedButton(onClick: goBack, buttonLabel: 'Back'),
+                ],
               ),
-              const SizedBox(height: 120),
-              TextFieldOutlined(
-                hintText: 'Nickname',
-                controller: _nicknameController,
-              ),
-              const SizedBox(height: 15),
-              TextFieldOutlined(
-                hintText: 'Max players (2-10)',
-                controller: _maxPlayersController,
-              ),
-              const SizedBox(height: 15),
-              GameTimeSelector(onChanged: (String value) {}),
-              const SizedBox(height: 35),
-              FullColorBlueButton(onClick: () {}, buttonLabel: 'Create'),
-              const SizedBox(height: 15),
-              BorderedButton(onClick: goBack, buttonLabel: 'Back'),
-            ],
+            ),
           ),
         ),
       ),

@@ -67,35 +67,38 @@ class _JoinPageState extends State<JoinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Builder(
-        builder: (ctx) => Padding(
-          padding: AppDimensions.allPagePadding,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-              children: [
-                const Text(
-                  'JOIN A GAME',
-                  style: AppTextStyles.headerTextStyle,
-                ),
-                const SizedBox(height: 150),
-                TextFieldOutlined(
-                  hintText: 'Nickname',
-                  controller: _nicknameController,
-                ),
-                const SizedBox(height: 15),
-                TextFieldOutlined(
-                  hintText: 'Join code',
-                  controller: _joinCodeController,
-                ),
-                const SizedBox(height: 35),
-                FullColorBlueButton(
-                    onClick: () async => joinGame(),
-                    isEnable: !_isJoinLoading,
-                    buttonLabel: _isJoinLoading ? 'Loading...' : 'Join'),
-                const SizedBox(height: 15),
-                BorderedButton(onClick: goBack, buttonLabel: 'Back'),
-              ],
+      body: Padding(
+        padding: AppDimensions.allPagePadding,
+        child: Center(
+          child: Container(
+            width: AppDimensions.getContainerWidth(context),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                children: [
+                  const Text(
+                    'JOIN A GAME',
+                    style: AppTextStyles.headerTextStyle,
+                  ),
+                  const SizedBox(height: 150),
+                  TextFieldOutlined(
+                    hintText: 'Nickname',
+                    controller: _nicknameController,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldOutlined(
+                    hintText: 'Join code',
+                    controller: _joinCodeController,
+                  ),
+                  const SizedBox(height: 35),
+                  FullColorBlueButton(
+                      onClick: () async => joinGame(),
+                      isEnable: !_isJoinLoading,
+                      buttonLabel: _isJoinLoading ? 'Loading...' : 'Join'),
+                  const SizedBox(height: 15),
+                  BorderedButton(onClick: goBack, buttonLabel: 'Back'),
+                ],
+              ),
             ),
           ),
         ),
