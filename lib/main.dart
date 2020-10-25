@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'core/dependency_injection/setup_locator.dart';
 import 'core/navigation/route_generator.dart';
@@ -15,13 +17,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Break Your Keyboard',
-      theme: ThemeData.dark(),
-      initialRoute: HomePage.route,
-      navigatorKey: sl<ContextProviderI>().getNavigationKey(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(
+          value: FirebaseAuth.instance.authStateChanges(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Break Your Keyboard',
+        theme: ThemeData.dark(),
+        initialRoute: HomePage.route,
+        navigatorKey: sl<ContextProviderI>().getNavigationKey(),
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
   }
 }
