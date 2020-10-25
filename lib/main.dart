@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'core/dependency_injection/setup_locator.dart';
 import 'core/navigation/route_generator.dart';
 import 'core/service/context/context_provider_i.dart';
-import 'module/game/splash_screen/error_screen.dart';
-import 'module/game/splash_screen/splash_screen.dart';
 import 'module/home/home_page.dart';
+import 'module/splash_screen/error_screen.dart';
+import 'module/splash_screen/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

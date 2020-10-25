@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/dependency_injection/setup_locator.dart';
-import '../../../core/service/router/router_i.dart';
-import '../../../presentation/app_bar_mobile_only.dart';
-import '../../../presentation/buttons/button_bordered.dart';
-import '../../../presentation/buttons/full_color_blue_button.dart';
-import '../../../presentation/dimensions.dart';
-import '../../../presentation/inputs/text_field_outlined.dart';
-import '../../../presentation/text_styles.dart';
-import '../widgets/game_time_selector.dart';
+import '../../core/dependency_injection/setup_locator.dart';
+import '../../core/service/router/router_i.dart';
+import '../../presentation/app_bar_mobile_only.dart';
+import '../../presentation/buttons/button_bordered.dart';
+import '../../presentation/buttons/full_color_blue_button.dart';
+import '../../presentation/dimensions.dart';
+import '../../presentation/inputs/text_field_outlined.dart';
+import '../../presentation/text_styles.dart';
+import '../game/widgets/game_time_selector.dart';
 
 class CreateGamePage extends StatefulWidget {
   static const route = 'create_game_page';

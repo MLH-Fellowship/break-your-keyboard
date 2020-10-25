@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../module/game/create_game_page/create_game_page.dart';
-import '../../module/game/join_page/join_page.dart';
+import '../../module/create_game/create_game_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';
 import '../../module/home/home_page.dart';
+import '../../module/join_game/join_game_page.dart';
 import '../../module/not_available/not_available.dart';
 
 class RouteGenerator {

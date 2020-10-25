@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/dependency_injection/setup_locator.dart';
-import '../../../core/service/api/database_i.dart';
-import '../../../core/service/error_message/error_message_provider_i.dart';
-import '../../../core/service/router/router_i.dart';
-import '../../../presentation/app_bar_mobile_only.dart';
-import '../../../presentation/buttons/button_bordered.dart';
-import '../../../presentation/buttons/full_color_blue_button.dart';
-import '../../../presentation/dimensions.dart';
-import '../../../presentation/inputs/text_field_outlined.dart';
-import '../../../presentation/text_styles.dart';
+import '../../core/dependency_injection/setup_locator.dart';
+import '../../core/service/api/database_i.dart';
+import '../../core/service/error_message/error_message_provider_i.dart';
+import '../../core/service/router/router_i.dart';
+import '../../presentation/app_bar_mobile_only.dart';
+import '../../presentation/buttons/button_bordered.dart';
+import '../../presentation/buttons/full_color_blue_button.dart';
+import '../../presentation/dimensions.dart';
+import '../../presentation/inputs/text_field_outlined.dart';
+import '../../presentation/text_styles.dart';
 
 class JoinPage extends StatefulWidget {
   static const route = 'join_page';

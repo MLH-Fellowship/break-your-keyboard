@@ -1,3 +1,3 @@
-class GameRepository implements GameRepositoryI {}
+import 'game_repository_i.dart';
 
-abstract class GameRepositoryI {}
+class GameRepository implements GameRepositoryI {}
