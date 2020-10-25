@@ -1,4 +1,5 @@
 import '../../module/create_game/create_game_view_model.dart';
+import '../../module/game/practice_mode/practice_mode_view_model.dart';
 import '../../module/home/home_view_model.dart';
 import '../../module/join_game/join_game_view_model.dart';
 import '../../repository/game_repository_i.dart';
@@ -21,4 +22,5 @@ void setupViewModels() {
     repository: getIts<GameRepositoryI>(),
   ));
 
+  sl.registerFactory(() => PracticeModeViewModel());
 }

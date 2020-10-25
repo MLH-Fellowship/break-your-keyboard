@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/traffic_color.dart';
+
 class TrafficLight extends StatelessWidget {
   final TrafficColor activeLight;
 
@@ -53,5 +55,3 @@ class TrafficLight extends StatelessWidget {
     );
   }
 }
-
-enum TrafficColor{red, yellow, green}
