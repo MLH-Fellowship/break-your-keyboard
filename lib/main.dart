@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'core/dependency_injection/setup_locator.dart';
 import 'core/navigation/route_generator.dart';
 import 'core/service/context/context_provider_i.dart';
+import 'module/game/splash_screen/error_screen.dart';
 import 'module/game/splash_screen/splash_screen.dart';
 import 'module/home/home_page.dart';
 
@@ -16,33 +17,60 @@ void main() {
 }
 
 // ignore: use_key_in_widget_constructors
-class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _firebaseInitialized = false;
+  bool _error = false;
+
+  Future<void> initializeFlutterFire() async {
+    try {
+      await Firebase.initializeApp();
+      setState(() {
+        _firebaseInitialized = true;
+      });
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      setState(() {
+        _error = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    initializeFlutterFire();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MultiProvider(
-            providers: [
-              StreamProvider<User>.value(
-                value: FirebaseAuth.instance.authStateChanges(),
-              ),
-            ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Break Your Keyboard',
-              theme: ThemeData.dark(),
-              initialRoute: HomePage.route,
-              navigatorKey: sl<ContextProviderI>().getNavigationKey(),
-              onGenerateRoute: RouteGenerator.generateRoute,
-            ),
-          );
-        }
+    if (!_firebaseInitialized) {
+      return const SplashScreen();
+    }
 
-        return const SplashScreen();
-      },
+    if (_error) {
+      return const ErrorScreen();
+    }
+
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(
+          value: FirebaseAuth.instance.authStateChanges(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Break Your Keyboard',
+        theme: ThemeData.dark(),
+        initialRoute: HomePage.route,
+        navigatorKey: sl<ContextProviderI>().getNavigationKey(),
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
   }
 }
