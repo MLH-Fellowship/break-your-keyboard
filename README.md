@@ -2,6 +2,9 @@
 
 A multiplayer game to keep clicking on the keyboard and revenge
 
+## Changing models
+  - In case of modifying models, run `flutter pub run build_runner build --delete-conflicting-outputs` to generate new serializable model
+
 ## How to run
   - Run `flutter packages get` to download pubspec dependencies.
   - Run `flutter clean` for most of first run errors you may face.
