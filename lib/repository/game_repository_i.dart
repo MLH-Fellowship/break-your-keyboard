@@ -1,4 +1,6 @@
+import '../models/room_model.dart';
+
 abstract class GameRepositoryI {
   Future<bool> doesRoomExists(String code);
-  Future<List<dynamic>> getRooms();
+  Stream<RoomModel> getRoomStream();
 }

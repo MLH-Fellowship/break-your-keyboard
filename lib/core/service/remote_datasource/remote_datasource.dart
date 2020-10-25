@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../models/room_model.dart';
 import 'remote_datasource_i.dart';
 
 class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
@@ -13,8 +14,9 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
   }
 
   @override
-  Future<List> getRooms() {
-    // TODO: implement getRooms
-    throw UnimplementedError();
+  Stream<RoomModel> getRoomStream(String code) {
+    final Stream<DocumentSnapshot> documentStream =
+        FirebaseFirestore.instance.collection('rooms').doc(code).snapshots();
+    return documentStream.map((event) => RoomModel.fromJson(event.data()));
   }
 }
