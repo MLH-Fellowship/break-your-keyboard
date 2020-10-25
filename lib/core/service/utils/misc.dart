@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Misc {
   static double currentTimeInSeconds() {
     final ms = DateTime.now().millisecondsSinceEpoch;
