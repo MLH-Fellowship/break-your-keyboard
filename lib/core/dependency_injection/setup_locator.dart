@@ -1,3 +1,4 @@
+import 'package:break_your_keyboard/module/create_game/create_game_view_model.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../module/home/home_view_model.dart';
@@ -15,6 +16,7 @@ GetIt sl = GetIt.instance;
 T getIts<T>() => sl.get<T>();
 
 void setupLocator() {
+  ///Services
   sl.registerSingleton<ContextProviderI>(ContextProvider());
   sl.registerLazySingleton<DatabaseI>(() => Database());
   sl.registerLazySingleton<RouterI>(() => Router(
@@ -22,5 +24,7 @@ void setupLocator() {
       ));
   sl.registerLazySingleton<ErrorMessageProviderI>(() => ErrorMessageProvider());
 
+  ///View Models
   sl.registerFactory(() => HomeViewModel());
+  sl.registerFactory(() => CreateGameViewModel());
 }
