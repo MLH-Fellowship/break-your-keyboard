@@ -29,11 +29,11 @@ class _MyAppState extends State<MyApp> {
   Future<void> initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();
+   //   await FirebaseAuth.instance.signInAnonymously();
       setState(() {
         _firebaseInitialized = true;
       });
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
+    } on Exception catch (_) {
       setState(() {
         _error = true;
       });

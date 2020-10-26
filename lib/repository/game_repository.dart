@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../core/service/remote_datasource/remote_datasource_i.dart';
+import '../models/player_model.dart';
 import '../models/room_model.dart';
 import 'game_repository_i.dart';
 
 class GameRepository implements GameRepositoryI {
   final RemoteDataSourceProviderI remoteDataSource;
   String currentRoomCode;
+  PlayerModel currentModel;
 
   GameRepository({@required this.remoteDataSource});
 
@@ -17,6 +19,11 @@ class GameRepository implements GameRepositoryI {
 
   @override
   Stream<RoomModel> getRoomStream(){
-    return remoteDataSource.getRoomStream(currentRoomCode);
+    return remoteDataSource.getRoomStream('');
+  }
+
+  @override
+  Stream<List<PlayerModel>> getRoomPlayersStream(String code){
+    return remoteDataSource.getRoomPlayersStream('');
   }
 }

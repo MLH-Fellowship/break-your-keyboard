@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/service/router/router_i.dart';
 import '../base/base_view_model.dart';
+import '../lobby/lobby_page.dart';
 
 class CreateGameViewModel extends BaseViewModel {
   RouterI router;
@@ -12,5 +13,7 @@ class CreateGameViewModel extends BaseViewModel {
     router.pop();
   }
 
-  void onClickCreateGame() {}
+  void onClickCreateGame() {
+    router.routeTo(LobbyPage.route);
+  }
 }

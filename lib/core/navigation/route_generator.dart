@@ -4,6 +4,7 @@ import '../../module/create_game/create_game_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';
 import '../../module/home/home_page.dart';
 import '../../module/join_game/join_game_page.dart';
+import '../../module/lobby/lobby_page.dart';
 import '../../module/not_available/not_available.dart';
 
 class RouteGenerator {
@@ -20,6 +21,9 @@ class RouteGenerator {
 
       case CreateGamePage.route:
         return _navigate(const CreateGamePage());
+
+      case LobbyPage.route:
+        return _navigate(const LobbyPage());
 
       default:
         return _navigate(NotAvailablePage(route: routeSettings.name));
