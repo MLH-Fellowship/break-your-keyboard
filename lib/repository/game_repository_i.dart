@@ -12,4 +12,6 @@ abstract class GameRepositoryI {
       {String joinCode, int duration, PlayerModel host});
   Future<Stream<List<PlayerModel>>> addPlayerToRoom(
       {String joinCode, PlayerModel player});
+
+  Future<bool> startGame(String joinCode);
 }

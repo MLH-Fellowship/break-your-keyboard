@@ -57,6 +57,6 @@ class JoinGameViewModel extends BaseViewModel {
     await repository.addPlayerToRoom(joinCode: joinCode, player: myself);
 
     await router.routeTo(LobbyPage.route,
-        arg: {'joinCode': joinCode, 'joiningAnExistingGame': true});
+        arg: LobbyPageArgs(joinCode: joinCode, isHost: false));
   }
 }

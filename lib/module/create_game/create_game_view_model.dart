@@ -1,3 +1,4 @@
+import 'package:break_your_keyboard/core/service/error_message/error_message_provider_i.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,11 @@ import '../lobby/lobby_page.dart';
 class CreateGameViewModel extends BaseViewModel {
   RouterI router;
   GameRepositoryI repository;
-
-  CreateGameViewModel({@required this.router, @required this.repository});
+  ErrorMessageProviderI errorMessageProvider;
+  CreateGameViewModel(
+      {@required this.router,
+      @required this.repository,
+      @required this.errorMessageProvider});
 
   void onClickBack() {
     router.pop();
@@ -31,6 +35,6 @@ class CreateGameViewModel extends BaseViewModel {
     await repository.createRoom(joinCode: joinCode, duration: 30, host: host);
 
     await router.routeTo(LobbyPage.route,
-        arg: {'joinCode': joinCode, 'joiningAnExistingGame': false});
+        arg: LobbyPageArgs(joinCode: joinCode));
   }
 }

@@ -99,4 +99,17 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
           .toList();
     });
   }
+
+  @override
+  Future<bool> startGame({String joinCode}) async {
+    final documentRef =
+        FirebaseFirestore.instance.collection('rooms').doc(joinCode);
+
+    return documentRef
+        .update(<String, dynamic>{
+          'startTime': DateTime.now().add(const Duration(seconds: 4)).toString()
+        })
+        .then((value) => true)
+        .catchError((dynamic _) => false);
+  }
 }

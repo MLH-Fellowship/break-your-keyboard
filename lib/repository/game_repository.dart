@@ -52,4 +52,9 @@ class GameRepository implements GameRepositoryI {
       {String joinCode, PlayerModel player}) async {
     return remoteDataSource.addPlayerToRoom(joinCode: joinCode, player: player);
   }
+
+  @override
+  Future<bool> startGame(String joinCode){
+    return remoteDataSource.startGame(joinCode: joinCode);
+  }
 }
