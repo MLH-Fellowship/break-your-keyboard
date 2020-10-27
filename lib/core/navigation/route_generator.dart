@@ -1,6 +1,6 @@
-import 'package:break_your_keyboard/models/room_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/room_model.dart';
 import '../../module/create_game/create_game_page.dart';
 import '../../module/game/multiplayer_mode/multiplayer_mode_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';

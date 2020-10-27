@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:break_your_keyboard/core/service/error_message/error_message_provider_i.dart';
-import 'package:break_your_keyboard/core/service/router/router_i.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/service/error_message/error_message_provider_i.dart';
+import '../../../core/service/router/router_i.dart';
 import '../../../core/service/utils/misc.dart';
 import '../../../models/traffic_color.dart';
 import '../../../repository/game_repository_i.dart';
