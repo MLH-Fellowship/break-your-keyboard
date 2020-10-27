@@ -75,7 +75,7 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
         FirebaseFirestore.instance.collection('rooms').doc(joinCode);
 
     // Add the host to the players collection
-    await roomDocumentRef.collection('players').add(host.toJson());
+    await roomDocumentRef.collection('players').doc(host.id).set(host.toJson());
 
     // Return a stream of the room
     return roomDocumentRef.snapshots().map((snapshot) {
@@ -91,7 +91,7 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
         .doc(joinCode)
         .collection('players');
 
-    await documentRef.add(player.toJson());
+    await documentRef.doc(player.id).set(player.toJson());
 
     return documentRef.snapshots().map((snapshot) {
       return snapshot.docs
@@ -109,6 +109,22 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
         .update(<String, dynamic>{
           'startTime': DateTime.now().add(const Duration(seconds: 4)).toString()
         })
+        .then((value) => true)
+        .catchError((dynamic _) => false);
+  }
+
+  @override
+  Future<bool> updateUserClicks(
+      {String joinCode, String playerUid, int clicks, int speed}) async {
+    print('joinCode: $joinCode and player: $playerUid');
+    final documentRef = FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(joinCode)
+        .collection('players')
+        .doc(playerUid);
+
+    return documentRef
+        .update(<String, dynamic>{'clicks': clicks, 'speed': speed})
         .then((value) => true)
         .catchError((dynamic _) => false);
   }

@@ -30,6 +30,8 @@ class LobbyViewModel extends BaseViewModel {
   }
 
   Future<void> onClickStartGame() async {
+    //TODO: shouldn't join start game with players < 2
+
     final bool isSuccess = await repository.startGame(_joinCode);
     if (isSuccess) {
       final room = await repository.getRoom(_joinCode);

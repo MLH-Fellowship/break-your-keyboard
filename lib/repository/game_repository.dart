@@ -54,7 +54,18 @@ class GameRepository implements GameRepositoryI {
   }
 
   @override
-  Future<bool> startGame(String joinCode){
+  Future<bool> startGame(String joinCode) {
     return remoteDataSource.startGame(joinCode: joinCode);
+  }
+
+  @override
+  Future<bool> updateUserClicks(
+      {String joinCode, String playerUid, int clicks, int speed}) {
+    return remoteDataSource.updateUserClicks(
+      joinCode: joinCode,
+      clicks: clicks,
+      playerUid: playerUid,
+      speed: speed,
+    );
   }
 }

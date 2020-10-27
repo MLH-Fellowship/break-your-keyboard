@@ -54,6 +54,9 @@ class JoinGameViewModel extends BaseViewModel {
         clicks: 0,
         id: FirebaseAuth.instance.currentUser.uid,
         speed: 0);
+
+    //TODO: shouldn't join a room that has startTime!=null
+
     await repository.addPlayerToRoom(joinCode: joinCode, player: myself);
 
     await router.routeTo(LobbyPage.route,

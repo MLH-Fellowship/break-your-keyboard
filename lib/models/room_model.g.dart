@@ -10,6 +10,7 @@ RoomModel _$RoomModelFromJson(Map<String, dynamic> json) {
   return RoomModel(
     startTime: json['startTime'] as String,
     endTime: json['endTime'] as String,
+    joinCode: json['joinCode'] as String,
     duration: json['duration'] as int,
   );
 }
@@ -17,5 +18,6 @@ RoomModel _$RoomModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
       'startTime': instance.startTime,
       'endTime': instance.endTime,
+      'joinCode': instance.joinCode,
       'duration': instance.duration,
     };
