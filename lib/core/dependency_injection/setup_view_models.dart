@@ -10,23 +10,24 @@ import 'setup_locator.dart';
 
 void setupViewModels() {
   sl.registerFactory(() => HomeViewModel(
-    router: getIts<RouterI>(),
-  ));
+        router: getIts<RouterI>(),
+      ));
 
   sl.registerFactory(() => CreateGameViewModel(
-    router: getIts<RouterI>(),
-  ));
+        router: getIts<RouterI>(),
+        repository: getIts<GameRepositoryI>(),
+      ));
 
   sl.registerFactory(() => JoinGameViewModel(
-    router: getIts<RouterI>(),
-    errorMessageProvider: getIts<ErrorMessageProviderI>(),
-    repository: getIts<GameRepositoryI>(),
-  ));
+        router: getIts<RouterI>(),
+        errorMessageProvider: getIts<ErrorMessageProviderI>(),
+        repository: getIts<GameRepositoryI>(),
+      ));
 
   sl.registerFactory(() => PracticeModeViewModel());
 
   sl.registerFactory(() => LobbyViewModel(
-    router: getIts<RouterI>(),
-    repository: getIts<GameRepositoryI>(),
-  ));
+        router: getIts<RouterI>(),
+        repository: getIts<GameRepositoryI>(),
+      ));
 }

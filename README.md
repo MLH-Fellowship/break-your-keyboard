@@ -1,6 +1,6 @@
 # break_your_keyboard
 
-A multiplayer game to keep clicking on the keyboard and revenge
+A multiplayer game to keep clicking on the keyboard
 
 ## Changing models
   - In case of modifying models, run `flutter pub run build_runner build --delete-conflicting-outputs` to generate new serializable model

@@ -52,7 +52,9 @@ class _JoinPageState extends State<JoinPage> {
                     ),
                     const SizedBox(height: 35),
                     FullColorBlueButton(
-                        onClick: () async => model.onClickJoinGame(joinCode: _joinCodeController.text),
+                        onClick: () async => model.onClickJoinGame(
+                            nickname: _nicknameController.text,
+                            joinCode: _joinCodeController.text),
                         isEnable: !model.isLoading,
                         buttonLabel: model.isLoading ? 'Loading...' : 'Join'),
                     const SizedBox(height: 15),

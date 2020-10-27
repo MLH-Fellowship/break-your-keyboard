@@ -27,6 +27,7 @@ class _CreateGamePageState extends State<CreateGamePage> {
   void dispose() {
     super.dispose();
     _nicknameController.dispose();
+    _maxPlayersController.dispose();
   }
 
   @override

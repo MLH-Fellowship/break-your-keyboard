@@ -23,7 +23,13 @@ class RouteGenerator {
         return _navigate(const CreateGamePage());
 
       case LobbyPage.route:
-        return _navigate(const LobbyPage());
+        final arguments = routeSettings.arguments as Map<String, Object>;
+
+        return _navigate(LobbyPage(
+          joinCode: arguments['joinCode'] as String,
+          joiningAnExistingRoom: arguments['joiningAnExistingRoom'] != null ??
+              arguments['joiningAnExistingRoom'] as bool,
+        ));
 
       default:
         return _navigate(NotAvailablePage(route: routeSettings.name));
