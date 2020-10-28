@@ -38,18 +38,19 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
             Container(
               width: AppDimensions.getContainerWidth(context),
               padding: AppDimensions.allPagePadding,
-              child: Column(
-                mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
-                children: [
-                  Expanded(
-                    child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                  children: [
+                    Column(
                       children: [
                         CountdownTimer(
                           endTime: model.endTime.millisecondsSinceEpoch - 1000,
                           widgetBuilder: (BuildContext context,
                               CurrentRemainingTime time) {
-                            if (time == null
-                            || time.sec > model.duration) return const SizedBox(height: 30);
+                            if (time == null || time.sec > model.duration) {
+                              return const SizedBox(height: 30);
+                            }
                             return SizedBox(
                               height: 30,
                               child: Text(
@@ -68,12 +69,12 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
                                 tapCount: model.tapCount,
                                 speed: model.speed),
                             invokeAction: model.onClickIncrement),
-                        const SizedBox(height: 10),
-                      ],
+                       ],
                     ),
-                  ),
-                  playerListBuilder(model),
-                ],
+                    const SizedBox(height: 50),
+                    playerListBuilder(model),
+                  ],
+                ),
               ),
             ),
           ],
