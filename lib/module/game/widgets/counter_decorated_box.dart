@@ -7,10 +7,15 @@ class CounterDecoratedBox extends StatelessWidget {
     Key key,
     @required int tapCount,
     @required int speed,
-  }) : _tapCount = tapCount, _speed = speed, super(key: key);
+    bool isEnabled = true,
+  })  : _tapCount = tapCount,
+        _speed = speed,
+        _isEnabled = isEnabled,
+        super(key: key);
 
   final int _tapCount;
   final int _speed;
+  final bool _isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +33,16 @@ class CounterDecoratedBox extends StatelessWidget {
         ],
         gradient: LinearGradient(
           colors: [
-            Color.fromARGB(255, min(255, _tapCount + 120), 15, 50),
-            Color.fromARGB(255, min(195, _tapCount + 45), 10,
-                max(60, _tapCount ~/ 3 + 10))
+            ..._isEnabled
+                ? [
+                    Color.fromARGB(255, min(255, _tapCount + 120), 15, 50),
+                    Color.fromARGB(255, min(195, _tapCount + 45), 10,
+                        max(60, _tapCount ~/ 3 + 10))
+                  ]
+                : [
+                    const Color.fromARGB(255, 30, 30, 30),
+                    const Color.fromARGB(255, 10, 10, 10),
+                  ]
           ],
           begin: const FractionalOffset(0.0, 0.0),
           end: const FractionalOffset(0.0, 1.0),

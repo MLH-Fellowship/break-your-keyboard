@@ -12,8 +12,12 @@ class LobbyViewModel extends BaseViewModel {
   RouterI router;
   GameRepositoryI repository;
   ErrorMessageProviderI errorMessageProvider;
+  RoomModel room;
 
   String _joinCode;
+  int _duration;
+
+  int get gameDuration => _duration;
 
   LobbyViewModel({
     @required this.router,
@@ -53,6 +57,11 @@ class LobbyViewModel extends BaseViewModel {
 
   void initialize(String joinCode, bool isHost) {
     _joinCode = joinCode;
+    repository.getRoom(joinCode).then((RoomModel roomModel) {
+      room = roomModel;
+      _duration = room.duration;
+      notifyListeners();
+    });
     if (!isHost) listenIfGameStarts();
   }
 }

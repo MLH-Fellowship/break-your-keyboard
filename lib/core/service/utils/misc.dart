@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'consts.dart';
+
 // ignore: avoid_classes_with_only_static_members
 class Misc {
   static const _chars =
@@ -17,5 +19,16 @@ class Misc {
 
   static int currentTimeInMilliseconds() {
     return DateTime.now().millisecondsSinceEpoch;
+  }
+
+  static String validateNickname(String nickname) {
+    if (nickname.isEmpty) {
+      return 'Nickname cannot be empty';
+    }
+
+    if (nickname.length > Consts.maxNicknameLength) {
+      return 'Nickname can\'t have more than ${Consts.maxNicknameLength} letters';
+    }
+    return '';
   }
 }

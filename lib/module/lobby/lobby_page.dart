@@ -4,6 +4,7 @@ import '../../models/player_model.dart';
 import '../../presentation/app_bar_mobile_only.dart';
 import '../../presentation/buttons/button_bordered.dart';
 import '../../presentation/buttons/full_color_blue_button.dart';
+import '../../presentation/colors.dart';
 import '../../presentation/dimensions.dart';
 import '../../presentation/text_styles.dart';
 import '../base/base_view.dart';
@@ -39,12 +40,26 @@ class _LobbyPageState extends State<LobbyPage> {
                 child: Column(
                   mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
                   children: [
-                    const Text(
-                      'LOBBY',
-                      style: AppTextStyles.headerTextStyle,
+                    // Text('Code: $joinCode',
+                    //     style: AppTextStyles.headerTextStyle),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Code:',
+                          style: AppTextStyles.headerTextStyle.copyWith(
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Text(joinCode,
+                            style: AppTextStyles.headerTextStyle.copyWith(
+                              color: AppColors.yellowColor,
+                            )),
+                      ],
                     ),
-                    Text('Code: $joinCode',
-                        style: AppTextStyles.headerTextStyle),
+                    const SizedBox(height: 5),
+                    Text('Game time: ${model.gameDuration} sec'),
                     const SizedBox(height: 20),
                     playerListBuilder(model),
                     if (isHost)

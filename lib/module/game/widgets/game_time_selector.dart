@@ -14,8 +14,16 @@ class GameTimeSelector extends StatefulWidget {
 }
 
 class _GameTimeSelectorState extends State<GameTimeSelector> {
-  final deviceTypes = ['10 sec', '15 sec', '30 sec'];
-  String currentSelectedValue;
+  final durations = ['10 sec', '15 sec', '30 sec'];
+  String currentSelectedValue = '10 sec';
+
+  @override
+  void initState() {
+    // Fire an event at first because on init, the first item is selected
+    widget.onChanged(durations.first);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormField<String>(
@@ -45,7 +53,7 @@ class _GameTimeSelectorState extends State<GameTimeSelector> {
                 });
                 widget.onChanged(newValue);
               },
-              items: deviceTypes.map((String value) {
+              items: durations.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),

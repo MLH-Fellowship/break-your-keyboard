@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/service/error_message/error_message_provider_i.dart';
 import '../../../core/service/router/router_i.dart';
+import '../../../core/service/utils/consts.dart';
 import '../../../core/service/utils/misc.dart';
 import '../../../models/player_model.dart';
 import '../../../models/room_model.dart';
@@ -26,17 +27,25 @@ class MultiPlayerModeViewModel extends BaseViewModel {
   RoomModel _currentRoom;
   TrafficColor _activeLight = TrafficColor.red;
   int _tapCount = 0;
-  int _tapCountAtPreviousUpdate = 0;
   double _startClickingTime = 0;
   int _speed = 0;
   Timer _trafficLightTimer;
   Timer _updateClicksTimer;
+  final int _updateIntervalInSeconds = Consts.multiplayerUpdateInterval;
 
-  bool get isGameStarted => _activeLight == TrafficColor.green;
   TrafficColor get activeLight => _activeLight;
+
+  bool get isGameStarted => activeLight == TrafficColor.green;
 
   int get speed => _speed;
   int get tapCount => _tapCount;
+  DateTime get endTime => _currentRoom.endTimeObj;
+  int get duration => _currentRoom.duration;
+
+  void endGame() {
+    _activeLight = TrafficColor.red;
+    notifyListeners();
+  }
 
   int _measureSpeed() {
     final timePassed = Misc.currentTimeInSeconds() - _startClickingTime;
@@ -63,36 +72,36 @@ class MultiPlayerModeViewModel extends BaseViewModel {
   void initialize(RoomModel currentRoom) {
     _currentRoom = currentRoom;
 
-    _trafficLightTimer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        if (DateTime.now().isAfter(_currentRoom.startTimeObj)) {
-          _incrementActiveLightIndex();
+    final double trafficLightTimerInterval =
+        _currentRoom.startTimeObj.difference(DateTime.now()).inSeconds / 3;
 
-          if (_activeLight == TrafficColor.green) {
-            timer.cancel();
-          }
+    // By splitting the interval into 3, we're compensating for any lag
+    // in between opening screens, or phone slowness.
+    // Splitting in 3 because 3 traffic lights
+    _trafficLightTimer = Timer.periodic(
+      Duration(milliseconds: (trafficLightTimerInterval * 1000).toInt()),
+      (timer) {
+        _incrementActiveLightIndex();
+
+        if (_activeLight == TrafficColor.green) {
+          timer.cancel();
+          notifyListeners();
         }
       },
     );
 
     _updateClicksTimer = Timer.periodic(
-      const Duration(seconds: 5),
+      Duration(seconds: _updateIntervalInSeconds),
       (timer) async {
         if (DateTime.now().isAfter(_currentRoom.startTimeObj)) {
-          if (_tapCountAtPreviousUpdate != _tapCount) {
-            final _isSuccess = await updateUserClicks();
-            print('update was $_isSuccess');
+          await updateUserClicks();
 
-            if (_isSuccess) {
-              _tapCountAtPreviousUpdate = _tapCount;
-            }
-          }
-
-          if (DateTime.now().isAfter(
-              DateTime.now().add(Duration(seconds: _currentRoom.duration)))) {
+          if (DateTime.now().isAfter(_currentRoom.startTimeObj
+              .add(Duration(seconds: _currentRoom.duration))
+              .subtract(const Duration(
+                  seconds: Consts.offsetLagAdjustmentSeconds)))) {
             timer.cancel();
-
+            endGame();
           }
         }
       },
