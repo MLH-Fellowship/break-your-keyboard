@@ -68,4 +68,9 @@ class GameRepository implements GameRepositoryI {
       speed: speed,
     );
   }
+
+  @override
+  Future<bool> resetGame({String joinCode}) {
+    return remoteDataSource.resetGame(joinCode: joinCode);
+  }
 }
