@@ -61,7 +61,7 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
                             );
                           },
                         ),
-                        if (model.isGameOver)
+                        if (model.isGameOver && widget.args.isHost)
                           DecoratedBoxWidget(
                             body: const Center(
                                 child: Text(

@@ -25,7 +25,7 @@ class RoomModel {
   }
 
   /// Constructs a new [DateTime] instance based on [startTime]
-  DateTime get startTimeObj => DateTime.tryParse(startTime);
+  DateTime get startTimeObj => DateTime.tryParse(startTime).toLocal();
 
   /// Constructs a new [DateTime] instance based on [endTime]
   DateTime get endTimeObj => DateTime.tryParse(endTime);

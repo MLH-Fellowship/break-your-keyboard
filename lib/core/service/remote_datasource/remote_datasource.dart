@@ -109,7 +109,7 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
     final RoomModel room = await getRoom(joinCode);
 
     final newStartTime =
-        DateTime.now().add(const Duration(seconds: Consts.trafficLightDelay));
+        DateTime.now().toUtc().add(const Duration(seconds: Consts.trafficLightDelay));
     final newEndTime = newStartTime.add(Duration(seconds: room.duration));
 
     print(newStartTime);
