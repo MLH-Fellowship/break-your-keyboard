@@ -39,11 +39,14 @@ class _LobbyPageState extends State<LobbyPage> {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Text('Code: $joinCode',
                     //     style: AppTextStyles.headerTextStyle),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      //ignore: avoid_redundant_argument_values
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
                           'Code:',
@@ -59,7 +62,12 @@ class _LobbyPageState extends State<LobbyPage> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    Text('Game time: ${model.gameDuration} seconds', textWidthBasis: TextWidthBasis.parent,),
+                    Center(
+                      child: Text(
+                        'Game time: ${model.gameDuration} seconds',
+                        textWidthBasis: TextWidthBasis.parent,
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     playerListBuilder(model),
                     if (isHost)

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class DecoratedBoxWidget extends StatelessWidget {
@@ -16,24 +14,16 @@ class DecoratedBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: _onTap,
       child: Ink(
-        height: min(_screenHeight * 0.35, 800),
+        height: 30,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.25),
-              offset: const Offset(0, 10),
-              blurRadius: 20,
-            ),
-          ],
+          borderRadius: BorderRadius.circular(5),
           gradient: const LinearGradient(
             colors: [
-              Color.fromARGB(255, 30, 30, 30),
-              Color.fromARGB(255, 10, 10, 10),
+              Color.fromARGB(255, 255, 45, 50),
+              Color.fromARGB(255, 195, 50, 60)
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(0.0, 1.0),

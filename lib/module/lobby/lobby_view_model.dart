@@ -15,6 +15,7 @@ class LobbyViewModel extends BaseViewModel {
   RoomModel room;
 
   String _joinCode;
+  bool _isHost;
   int _duration;
 
   int get gameDuration => _duration;
@@ -34,8 +35,6 @@ class LobbyViewModel extends BaseViewModel {
   }
 
   Future<void> onClickStartGame() async {
-    //TODO: shouldn't join start game with players < 2
-
     final bool isSuccess = await repository.startGame(_joinCode);
     if (isSuccess) {
       final room = await repository.getRoom(_joinCode);
@@ -52,11 +51,13 @@ class LobbyViewModel extends BaseViewModel {
   }
 
   void startGame(RoomModel room) {
-    router.routeReplacementTo(MultiPlayerModePage.route, arg: room);
+    router.routeReplacementTo(MultiPlayerModePage.route,
+        arg: MultiPlayerGamePageArgs(room: room, isHost: _isHost));
   }
 
   void initialize(String joinCode, bool isHost) {
     _joinCode = joinCode;
+    _isHost = isHost;
     repository.getRoom(joinCode).then((RoomModel roomModel) {
       room = roomModel;
       _duration = room.duration;

@@ -15,9 +15,8 @@ import 'multiplayer_mode_view_model.dart';
 
 class MultiPlayerModePage extends StatefulWidget {
   static const route = 'multiplayer_mode_page';
-  final RoomModel currentRoom;
-  const MultiPlayerModePage({Key key, @required this.currentRoom})
-      : super(key: key);
+  final MultiPlayerGamePageArgs args;
+  const MultiPlayerModePage({Key key, @required this.args}) : super(key: key);
 
   @override
   _MultiPlayerModePageState createState() => _MultiPlayerModePageState();
@@ -30,7 +29,8 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MultiPlayerModeViewModel>(
-      onModelReady: (model) => model.initialize(widget.currentRoom),
+      onModelReady: (model) =>
+          model.initialize(widget.args.room, widget.args.isHost),
       builder: (context, model, child) => Scaffold(
         appBar: const AppBarForMobileOnly(),
         body: Row(
@@ -61,25 +61,26 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
                             );
                           },
                         ),
-                        TrafficLight(activeLight: model.activeLight),
-                        const SizedBox(height: 40),
                         if (model.isGameOver)
                           DecoratedBoxWidget(
                             body: const Center(
                                 child: Text(
                               'Play Again',
-                              style: TextStyle(fontSize: 32),
+                              style: TextStyle(fontSize: 15),
+                              textWidthBasis: TextWidthBasis.parent,
                             )),
                             onTap: model.onPlayAgainClick,
-                          )
-                        else
-                          TapAndKeyListener(
-                              isEnabled: model.isGameStarted,
-                              body: CounterDecoratedBox(
-                                  isEnabled: model.isGameStarted,
-                                  tapCount: model.tapCount,
-                                  speed: model.speed),
-                              invokeAction: model.onClickIncrement)
+                          ),
+                        const SizedBox(height: 10),
+                        TrafficLight(activeLight: model.activeLight),
+                        const SizedBox(height: 40),
+                        TapAndKeyListener(
+                            isEnabled: model.isGameStarted,
+                            body: CounterDecoratedBox(
+                                isEnabled: model.isGameStarted,
+                                tapCount: model.tapCount,
+                                speed: model.speed),
+                            invokeAction: model.onClickIncrement)
                       ],
                     ),
                     const SizedBox(height: 50),
@@ -129,4 +130,11 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
       ),
     );
   }
+}
+
+@immutable
+class MultiPlayerGamePageArgs {
+  final RoomModel room;
+  final bool isHost;
+  const MultiPlayerGamePageArgs({@required this.room, @required this.isHost});
 }
