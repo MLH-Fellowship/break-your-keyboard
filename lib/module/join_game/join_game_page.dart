@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/service/utils/consts.dart';
 import '../../presentation/app_bar_mobile_only.dart';
 import '../../presentation/buttons/button_bordered.dart';
 import '../../presentation/buttons/full_color_blue_button.dart';
@@ -24,6 +25,7 @@ class _JoinPageState extends State<JoinPage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Handle OnWillPop
     return BaseView<JoinGameViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: const AppBarForMobileOnly(),
@@ -43,11 +45,14 @@ class _JoinPageState extends State<JoinPage> {
                     const SizedBox(height: 150),
                     TextFieldOutlined(
                       hintText: 'Nickname',
+                      maxLength: Consts.maxNicknameLength,
                       controller: _nicknameController,
                     ),
                     const SizedBox(height: 15),
                     TextFieldOutlined(
                       hintText: 'Join code',
+                      maxLength: Consts.joinCodeLength,
+                      capitalized: true,
                       controller: _joinCodeController,
                     ),
                     const SizedBox(height: 35),

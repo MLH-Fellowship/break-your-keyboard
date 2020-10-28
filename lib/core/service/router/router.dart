@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../navigation/route_argument.dart';
 import '../context/context_provider_i.dart';
 import 'router_i.dart';
 
@@ -18,7 +17,7 @@ class Router implements RouterI {
   }
 
   @override
-  Future<dynamic> routeReplacementTo(String routeName, {RouteArgument arg}) {
+  Future<dynamic> routeReplacementTo(String routeName, {Object arg}) {
     return contextProvider
         .getNavigationKey()
         .currentState

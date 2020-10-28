@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../models/player_model.dart';
 import '../../../models/room_model.dart';
+import '../utils/consts.dart';
 import 'remote_datasource_i.dart';
 
 class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
@@ -75,7 +76,7 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
         FirebaseFirestore.instance.collection('rooms').doc(joinCode);
 
     // Add the host to the players collection
-    await roomDocumentRef.collection('players').add(host.toJson());
+    await roomDocumentRef.collection('players').doc(host.id).set(host.toJson());
 
     // Return a stream of the room
     return roomDocumentRef.snapshots().map((snapshot) {
@@ -91,12 +92,51 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
         .doc(joinCode)
         .collection('players');
 
-    await documentRef.add(player.toJson());
+    await documentRef.doc(player.id).set(player.toJson());
 
     return documentRef.snapshots().map((snapshot) {
       return snapshot.docs
           .map((doc) => PlayerModel.fromJson(doc.data()))
           .toList();
     });
+  }
+
+  @override
+  Future<bool> startGame({String joinCode}) async {
+    final documentRef =
+        FirebaseFirestore.instance.collection('rooms').doc(joinCode);
+
+    final RoomModel room = await getRoom(joinCode);
+
+    final newStartTime =
+        DateTime.now().add(const Duration(seconds: Consts.trafficLightDelay));
+    final newEndTime = newStartTime.add(Duration(seconds: room.duration));
+
+    print(newStartTime);
+    print(newEndTime);
+
+    return documentRef
+        .update(<String, dynamic>{
+          'startTime': newStartTime.toString(),
+          'endTime': newEndTime.toString()
+        })
+        .then((value) => true)
+        .catchError((dynamic _) => false);
+  }
+
+  @override
+  Future<bool> updateUserClicks(
+      {String joinCode, String playerUid, int clicks, int speed}) async {
+    print('joinCode: $joinCode and player: $playerUid');
+    final documentRef = FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(joinCode)
+        .collection('players')
+        .doc(playerUid);
+
+    return documentRef
+        .update(<String, dynamic>{'clicks': clicks, 'speed': speed})
+        .then((value) => true)
+        .catchError((dynamic _) => false);
   }
 }

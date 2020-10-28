@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../core/service/error_message/error_message_provider_i.dart';
 import '../../core/service/router/router_i.dart';
+import '../../core/service/utils/misc.dart';
 import '../../models/player_model.dart';
+import '../../models/room_model.dart';
 import '../../repository/game_repository_i.dart';
 import '../base/base_view_model.dart';
 import '../lobby/lobby_page.dart';
@@ -25,22 +27,23 @@ class JoinGameViewModel extends BaseViewModel {
 
   Future<void> onClickJoinGame(
       {@required String nickname, @required String joinCode}) async {
+    final joinCodeUppercase = joinCode.toUpperCase();
     setIsLoadingTo(true);
 
-    // TODO: join codes need to be case insensitive.
-    if (joinCode.isEmpty) {
+    if (joinCodeUppercase.isEmpty) {
       errorMessageProvider.showSnackBar('Provide a join code!');
       setIsLoadingTo(false);
       return;
     }
 
-    if (nickname.isEmpty) {
-      errorMessageProvider.showSnackBar('Provide a username!');
+    final nicknameValidationMessage = Misc.validateNickname(nickname);
+    if (nicknameValidationMessage != '') {
+      errorMessageProvider.showSnackBar(nicknameValidationMessage);
       setIsLoadingTo(false);
       return;
     }
 
-    final doesRoomExists = await repository.doesRoomExists(joinCode);
+    final doesRoomExists = await repository.doesRoomExists(joinCodeUppercase);
     setIsLoadingTo(false);
 
     if (!doesRoomExists) {
@@ -48,15 +51,25 @@ class JoinGameViewModel extends BaseViewModel {
       return;
     }
 
+    final RoomModel room = await repository.getRoom(joinCodeUppercase);
+    if (!room.isJoinable) {
+      errorMessageProvider.showSnackBar('This game is no longer joinable');
+      return;
+    }
+
+    // TODO: we need to have a player limit
+
     final PlayerModel myself = PlayerModel(
         name: nickname,
         isHost: false,
         clicks: 0,
         id: FirebaseAuth.instance.currentUser.uid,
         speed: 0);
-    await repository.addPlayerToRoom(joinCode: joinCode, player: myself);
+
+    await repository.addPlayerToRoom(
+        joinCode: joinCodeUppercase, player: myself);
 
     await router.routeTo(LobbyPage.route,
-        arg: {'joinCode': joinCode, 'joiningAnExistingGame': true});
+        arg: LobbyPageArgs(joinCode: joinCodeUppercase, isHost: false));
   }
 }

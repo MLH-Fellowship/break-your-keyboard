@@ -42,7 +42,9 @@ class _PracticeModePageState extends State<PracticeModePage> {
                 TapAndKeyListener(
                     isEnabled: model.isGameStarted,
                     body: CounterDecoratedBox(
-                        tapCount: model.tapCount, speed: model.speed),
+                        isEnabled: model.isGameStarted,
+                        tapCount: model.tapCount,
+                        speed: model.speed),
                     invokeAction: model.onClickIncrement),
               ],
             ),

@@ -28,7 +28,7 @@ class RoomModel {
   DateTime get startTimeObj => DateTime.tryParse(startTime);
 
   /// Constructs a new [DateTime] instance based on [endTime]
-  DateTime get endTimeObj => DateTime.parse(endTime);
+  DateTime get endTimeObj => DateTime.tryParse(endTime);
 
   bool get hasGameStarted =>
       startTimeObj != null && startTimeObj.isBefore(DateTime.now());
@@ -36,5 +36,5 @@ class RoomModel {
   bool get hasGameEnded =>
       hasGameStarted && endTimeObj.isBefore(DateTime.now());
 
-  bool get isJoinable => startTime == '' && endTime == '';
+  bool get isJoinable => startTime == null && endTime == null;
 }

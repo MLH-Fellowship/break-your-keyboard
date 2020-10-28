@@ -11,4 +11,7 @@ abstract class RemoteDataSourceProviderI {
       {String joinCode, int duration, PlayerModel host});
   Future<Stream<List<PlayerModel>>> addPlayerToRoom(
       {String joinCode, PlayerModel player});
+  Future<bool> startGame({String joinCode});
+  Future<bool> updateUserClicks(
+      {String joinCode, String playerUid, int clicks, int speed});
 }

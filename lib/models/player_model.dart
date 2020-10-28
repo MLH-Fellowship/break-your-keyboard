@@ -25,4 +25,8 @@ class PlayerModel {
       speed: speed ?? this.speed,
     );
   }
+
+  String getAvatarUrl() {
+    return 'https://avatars.dicebear.com/api/human/$name.svg';
+  }
 }

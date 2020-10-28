@@ -21,13 +21,18 @@ class CreateGamePage extends StatefulWidget {
 
 class _CreateGamePageState extends State<CreateGamePage> {
   final _nicknameController = TextEditingController();
-  final _maxPlayersController = TextEditingController();
+  int duration = 10;
 
   @override
   void dispose() {
     super.dispose();
     _nicknameController.dispose();
-    _maxPlayersController.dispose();
+  }
+
+  void onDurationChanged(String value) {
+    // Split "10 sec" and get the 10
+    // There can be a better way to do this.
+    duration = int.tryParse(value.split(' ')[0]);
   }
 
   @override
@@ -54,16 +59,12 @@ class _CreateGamePageState extends State<CreateGamePage> {
                       controller: _nicknameController,
                     ),
                     const SizedBox(height: 15),
-                    TextFieldOutlined(
-                      hintText: 'Max players (2-10)',
-                      controller: _maxPlayersController,
-                    ),
-                    const SizedBox(height: 15),
-                    GameTimeSelector(onChanged: (String value) {}),
+                    GameTimeSelector(onChanged: onDurationChanged),
                     const SizedBox(height: 35),
                     FullColorBlueButton(
-                        onClick: model.onClickCreateGame,
-                        buttonLabel: 'Create'),
+                        onClick: () => model.onClickCreateGame(
+                            _nicknameController.text, duration),
+                        buttonLabel: model.isLoading ? 'Loading...' : 'Create'),
                     const SizedBox(height: 15),
                     BorderedButton(
                         onClick: model.onClickBack, buttonLabel: 'Back'),

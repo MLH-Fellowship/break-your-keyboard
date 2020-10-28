@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../models/room_model.dart';
 import '../../module/create_game/create_game_page.dart';
+import '../../module/game/multiplayer_mode/multiplayer_mode_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';
+import '../../module/game_over/game_over_page.dart';
 import '../../module/home/home_page.dart';
 import '../../module/join_game/join_game_page.dart';
 import '../../module/lobby/lobby_page.dart';
@@ -23,13 +26,17 @@ class RouteGenerator {
         return _navigate(const CreateGamePage());
 
       case LobbyPage.route:
-        final arguments = routeSettings.arguments as Map<String, Object>;
-
         return _navigate(LobbyPage(
-          joinCode: arguments['joinCode'] as String,
-          joiningAnExistingRoom: arguments['joiningAnExistingRoom'] != null ??
-              arguments['joiningAnExistingRoom'] as bool,
+          args: routeSettings.arguments as LobbyPageArgs,
         ));
+
+      case MultiPlayerModePage.route:
+        return _navigate(MultiPlayerModePage(
+          currentRoom: routeSettings.arguments as RoomModel,
+        ));
+
+      case GameOverPage.route:
+        return _navigate(const GameOverPage());
 
       default:
         return _navigate(NotAvailablePage(route: routeSettings.name));

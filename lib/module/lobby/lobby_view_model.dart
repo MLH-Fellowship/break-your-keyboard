@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
 
+import '../../core/service/error_message/error_message_provider_i.dart';
 import '../../core/service/router/router_i.dart';
 import '../../models/player_model.dart';
 import '../../models/room_model.dart';
 import '../../repository/game_repository_i.dart';
 import '../base/base_view_model.dart';
+import '../game/multiplayer_mode/multiplayer_mode_page.dart';
 
 class LobbyViewModel extends BaseViewModel {
   RouterI router;
   GameRepositoryI repository;
+  ErrorMessageProviderI errorMessageProvider;
+  RoomModel room;
+
   String _joinCode;
-  bool _joiningAnExistingRoom; // ignore: unused_field
+  int _duration;
+
+  int get gameDuration => _duration;
 
   LobbyViewModel({
     @required this.router,
     @required this.repository,
+    @required this.errorMessageProvider,
   });
-
-  set joinCode(String joinCode) {
-    _joinCode = joinCode;
-  }
-
-  set joiningAnExistingRoom(bool value) {
-    _joiningAnExistingRoom = value;
-  }
-
-  Stream<RoomModel> get roomStream {
-    return repository.getRoomStream(_joinCode);
-  }
 
   Stream<List<PlayerModel>> get playersStream {
     return repository.getRoomPlayersStream(_joinCode);
@@ -37,5 +33,35 @@ class LobbyViewModel extends BaseViewModel {
     router.pop();
   }
 
-  void onClickStartGame() {}
+  Future<void> onClickStartGame() async {
+    //TODO: shouldn't join start game with players < 2
+
+    final bool isSuccess = await repository.startGame(_joinCode);
+    if (isSuccess) {
+      final room = await repository.getRoom(_joinCode);
+      startGame(room);
+    } else {
+      errorMessageProvider.showSnackBar('Error while starting the game');
+    }
+  }
+
+  void listenIfGameStarts() {
+    repository.getRoomStream(_joinCode).listen((room) {
+      if (room.startTime != null) startGame(room);
+    });
+  }
+
+  void startGame(RoomModel room) {
+    router.routeReplacementTo(MultiPlayerModePage.route, arg: room);
+  }
+
+  void initialize(String joinCode, bool isHost) {
+    _joinCode = joinCode;
+    repository.getRoom(joinCode).then((RoomModel roomModel) {
+      room = roomModel;
+      _duration = room.duration;
+      notifyListeners();
+    });
+    if (!isHost) listenIfGameStarts();
+  }
 }

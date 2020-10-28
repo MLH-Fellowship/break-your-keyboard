@@ -1,4 +1,5 @@
 import '../../module/create_game/create_game_view_model.dart';
+import '../../module/game/multiplayer_mode/multiplayer_mode_view_model.dart';
 import '../../module/game/practice_mode/practice_mode_view_model.dart';
 import '../../module/home/home_view_model.dart';
 import '../../module/join_game/join_game_view_model.dart';
@@ -16,6 +17,7 @@ void setupViewModels() {
   sl.registerFactory(() => CreateGameViewModel(
         router: getIts<RouterI>(),
         repository: getIts<GameRepositoryI>(),
+        errorMessageProvider: getIts<ErrorMessageProviderI>(),
       ));
 
   sl.registerFactory(() => JoinGameViewModel(
@@ -29,5 +31,12 @@ void setupViewModels() {
   sl.registerFactory(() => LobbyViewModel(
         router: getIts<RouterI>(),
         repository: getIts<GameRepositoryI>(),
+        errorMessageProvider: getIts<ErrorMessageProviderI>(),
+      ));
+
+  sl.registerFactory(() => MultiPlayerModeViewModel(
+        router: getIts<RouterI>(),
+        repository: getIts<GameRepositoryI>(),
+        errorMessageProvider: getIts<ErrorMessageProviderI>(),
       ));
 }

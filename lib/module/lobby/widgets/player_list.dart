@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/player_model.dart';
-import 'small_player_info.dart';
+import '../../game/widgets/small_player_info.dart';
 
 class PlayerList extends StatelessWidget {
   final List<PlayerModel> players;
