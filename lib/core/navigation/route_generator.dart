@@ -4,7 +4,6 @@ import '../../models/room_model.dart';
 import '../../module/create_game/create_game_page.dart';
 import '../../module/game/multiplayer_mode/multiplayer_mode_page.dart';
 import '../../module/game/practice_mode/practice_mode_page.dart';
-import '../../module/game_over/game_over_page.dart';
 import '../../module/home/home_page.dart';
 import '../../module/join_game/join_game_page.dart';
 import '../../module/lobby/lobby_page.dart';
@@ -34,9 +33,6 @@ class RouteGenerator {
         return _navigate(MultiPlayerModePage(
           currentRoom: routeSettings.arguments as RoomModel,
         ));
-
-      case GameOverPage.route:
-        return _navigate(const GameOverPage());
 
       default:
         return _navigate(NotAvailablePage(route: routeSettings.name));

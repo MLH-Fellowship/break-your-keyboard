@@ -59,7 +59,7 @@ class _LobbyPageState extends State<LobbyPage> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    Text('Game time: ${model.gameDuration} sec'),
+                    Text('Game time: ${model.gameDuration} seconds', textWidthBasis: TextWidthBasis.parent,),
                     const SizedBox(height: 20),
                     playerListBuilder(model),
                     if (isHost)

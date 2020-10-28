@@ -125,6 +125,22 @@ class RemoteDataSourceProvider implements RemoteDataSourceProviderI {
   }
 
   @override
+  Future<bool> resetGame({String joinCode}) async {
+    final documentRef =
+        FirebaseFirestore.instance.collection('rooms').doc(joinCode);
+
+    final players = documentRef.collection('players').get();
+    await players.then((value) => value.docs.forEach((element) {
+          element.reference.update(<String, dynamic>{'clicks': 0, 'speed': 0});
+        }));
+
+    return documentRef
+        .update(<String, dynamic>{'startTime': null, 'endTime': null})
+        .then((value) => true)
+        .catchError((dynamic _) => false);
+  }
+
+  @override
   Future<bool> updateUserClicks(
       {String joinCode, String playerUid, int clicks, int speed}) async {
     print('joinCode: $joinCode and player: $playerUid');

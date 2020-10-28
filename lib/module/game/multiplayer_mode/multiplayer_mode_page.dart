@@ -7,6 +7,7 @@ import '../../../presentation/app_bar_mobile_only.dart';
 import '../../../presentation/dimensions.dart';
 import '../../base/base_view.dart';
 import '../widgets/counter_decorated_box.dart';
+import '../widgets/decorated_box.dart';
 import '../widgets/horizontal_small_player_info.dart';
 import '../widgets/tap_and_key_listener.dart';
 import '../widgets/traffic_light.dart';
@@ -62,14 +63,24 @@ class _MultiPlayerModePageState extends State<MultiPlayerModePage> {
                         ),
                         TrafficLight(activeLight: model.activeLight),
                         const SizedBox(height: 40),
-                        TapAndKeyListener(
-                            isEnabled: model.isGameStarted,
-                            body: CounterDecoratedBox(
-                                isEnabled: model.isGameStarted,
-                                tapCount: model.tapCount,
-                                speed: model.speed),
-                            invokeAction: model.onClickIncrement),
-                       ],
+                        if (model.isGameOver)
+                          DecoratedBoxWidget(
+                            body: const Center(
+                                child: Text(
+                              'Play Again',
+                              style: TextStyle(fontSize: 32),
+                            )),
+                            onTap: model.onPlayAgainClick,
+                          )
+                        else
+                          TapAndKeyListener(
+                              isEnabled: model.isGameStarted,
+                              body: CounterDecoratedBox(
+                                  isEnabled: model.isGameStarted,
+                                  tapCount: model.tapCount,
+                                  speed: model.speed),
+                              invokeAction: model.onClickIncrement)
+                      ],
                     ),
                     const SizedBox(height: 50),
                     playerListBuilder(model),

@@ -12,6 +12,7 @@ import '../../../models/room_model.dart';
 import '../../../models/traffic_color.dart';
 import '../../../repository/game_repository_i.dart';
 import '../../base/base_view_model.dart';
+import '../../lobby/lobby_page.dart';
 
 class MultiPlayerModeViewModel extends BaseViewModel {
   GameRepositoryI repository;
@@ -32,19 +33,27 @@ class MultiPlayerModeViewModel extends BaseViewModel {
   Timer _trafficLightTimer;
   Timer _updateClicksTimer;
   final int _updateIntervalInSeconds = Consts.multiplayerUpdateInterval;
+  bool _isGameOver = false;
 
   TrafficColor get activeLight => _activeLight;
 
   bool get isGameStarted => activeLight == TrafficColor.green;
-
+  bool get isGameOver => _isGameOver;
   int get speed => _speed;
   int get tapCount => _tapCount;
   DateTime get endTime => _currentRoom.endTimeObj;
   int get duration => _currentRoom.duration;
 
   void endGame() {
+    _isGameOver = true;
     _activeLight = TrafficColor.red;
     notifyListeners();
+  }
+
+  Future<void> onPlayAgainClick() async {
+    await repository.resetGame(joinCode: _currentRoom.joinCode);
+    await router.routeTo(LobbyPage.route,
+        arg: LobbyPageArgs(joinCode: _currentRoom.joinCode));
   }
 
   int _measureSpeed() {

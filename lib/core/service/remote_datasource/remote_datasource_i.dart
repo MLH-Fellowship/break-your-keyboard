@@ -14,4 +14,5 @@ abstract class RemoteDataSourceProviderI {
   Future<bool> startGame({String joinCode});
   Future<bool> updateUserClicks(
       {String joinCode, String playerUid, int clicks, int speed});
+  Future<bool> resetGame({String joinCode});
 }
