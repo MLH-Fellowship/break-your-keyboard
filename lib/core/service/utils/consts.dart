@@ -1,6 +1,6 @@
 class Consts {
-  static const int trafficLightDelay = 4;
-  static const int multiplayerUpdateInterval = 3;
+  static const int trafficLightDelay = 5;
+  static const int multiplayerUpdateInterval = 2;
 
   static const int joinCodeLength = 4;
   static const int maxNicknameLength = 12;
