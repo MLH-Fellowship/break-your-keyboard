@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^0.19.1
   countup: ^0.1.2
   flutter_countdown_timer: ^1.4.0
+  flutter_spinkit: ^4.1.2+1
 
 dev_dependencies:
   flutter_test:
