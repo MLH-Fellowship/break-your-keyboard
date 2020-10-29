@@ -101,7 +101,7 @@ class _LobbyPageState extends State<LobbyPage> {
           if (!snapshot.hasData) {
             return SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
-              child: ProgressIndicatorWidget(),
+              child: const ProgressIndicatorWidget(),
             );
           }
           return PlayerList(players: snapshot.data);
