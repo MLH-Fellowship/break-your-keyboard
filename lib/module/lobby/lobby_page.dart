@@ -7,6 +7,7 @@ import '../../presentation/buttons/full_color_blue_button.dart';
 import '../../presentation/colors.dart';
 import '../../presentation/decorations.dart';
 import '../../presentation/dimensions.dart';
+import '../../presentation/progress_indicator_widget.dart';
 import '../../presentation/text_styles.dart';
 import '../base/base_view.dart';
 import 'lobby_view_model.dart';
@@ -44,8 +45,6 @@ class _LobbyPageState extends State<LobbyPage> {
                     mainAxisAlignment: AppDimensions.containerMainAxisAlignment,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Text('Code: $joinCode',
-                      //     style: AppTextStyles.headerTextStyle),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         //ignore: avoid_redundant_argument_values
@@ -99,8 +98,11 @@ class _LobbyPageState extends State<LobbyPage> {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
+          if (!snapshot.hasData) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ProgressIndicatorWidget(),
+            );
           }
           return PlayerList(players: snapshot.data);
         });
